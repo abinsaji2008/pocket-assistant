@@ -1,0 +1,28 @@
+patient asks for water
+assistant asks to place glass correctly
+wait until glass is detected and weight is stable
+glass_weight = current_weight
+assistant confirms glass detected
+target_water = requested_amount
+
+start_pump()
+
+while true:
+    current_weight = read_load_cell()
+    water_weight = current_weight - glass_weight
+
+    if glass_removed or weight_drops_suddenly:
+        stop_pump()
+        break
+
+    if water_weight >= target_water:
+        stop_pump()
+        break
+
+    if pump_running and weight_is_not_increasing:
+        stop_pump()
+        break
+
+    if dispensing_time > max_time:
+        stop_pump()
+        break
